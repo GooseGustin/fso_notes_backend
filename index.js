@@ -40,7 +40,7 @@ let notes = [
 ]
 
 app.get('/', (request, response) => {
-    response.send('<h1>Hello world!</h1>')
+    response.send('<h1>Hello world!</h1><h2>I am groot</h2>')
 })
 
 app.get('/api/notes', (request, response) => {
