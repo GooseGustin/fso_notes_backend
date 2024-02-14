@@ -5,6 +5,7 @@ const cors = require('cors')
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('dist'))
 
 const requestLogger = (request, response, next) => {
     console.log('Method:', request.method) 
@@ -40,7 +41,8 @@ let notes = [
 ]
 
 app.get('/', (request, response) => {
-    response.send('<h1>Hello world!</h1><h2>I am groot</h2>')
+    // response.send('<h1>Hello world!</h1><h2>I am groot</h2>')
+    response.send('./dist/index.html')
 })
 
 app.get('/api/notes', (request, response) => {
