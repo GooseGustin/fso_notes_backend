@@ -1,12 +1,8 @@
-// const http = require('http') 
+require('dotenv').config()
 const express = require('express') 
-const app = express() 
 const cors = require('cors') 
-
-app.use(cors())
-app.use(express.json())
-app.use(express.static('dist'))
-
+const Note = require('./models/note')
+const app = express() 
 const requestLogger = (request, response, next) => {
     console.log('Method:', request.method) 
     console.log('Path:  ', request.path)
@@ -15,6 +11,10 @@ const requestLogger = (request, response, next) => {
     next() // yields control over to the next middleware
 }
 
+// MIDDLEWARE
+app.use(cors())
+app.use(express.json())
+app.use(express.static('dist'))
 app.use(requestLogger)
 
 let notes = [
@@ -35,7 +35,7 @@ let notes = [
     }, 
     {
         id: 4, 
-        content: "It's 2 O'clock in the morning", 
+        content: "CSS is hard", 
         important: false
     }
 ]
@@ -46,7 +46,12 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/notes', (request, response) => {
-    response.json(notes)
+    Note
+    .find({})
+    .then(notes => {
+        response.json(notes)
+        // mongoose.connection.close()
+    })
 })
 
 app.get('/api/notes/:id', (request, response) => {
@@ -102,6 +107,6 @@ const unkwownEndpoint = (request, response) => {
 
 app.use(unkwownEndpoint)
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT)
 console.log(`Server running on port ${PORT}`) 

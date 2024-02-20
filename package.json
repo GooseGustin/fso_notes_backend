@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "build:ui": "rm -rf dist && cd ../../fullStackExercises/part2/notes && npm run build && cp -r dist ../../../fullStackPlayground/fso_notes_backend",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,9 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "dotenv": "^16.4.4",
+    "express": "^4.18.2",
+    "mongodb": "4.0",
+    "mongoose": "^8.1.2"
   }
 }
